@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="admin" type="com.entity.Admin" />
+		<typeAlias alias="clazz" type="com.entity.Clazz" />
+		<typeAlias alias="teacher" type="com.entity.Teacher" />
+		<typeAlias alias="student" type="com.entity.Student" />
+		<typeAlias alias="programs" type="com.entity.Programs" />
+		<typeAlias alias="marks" type="com.entity.Marks" />
+		<typeAlias alias="bonus" type="com.entity.Bonus" />
+		<typeAlias alias="dedu" type="com.entity.Dedu" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/entity/admin.xml" />
+		<mapper resource="com/entity/clazz.xml" />
+		<mapper resource="com/entity/teacher.xml" />
+		<mapper resource="com/entity/student.xml" />
+		<mapper resource="com/entity/programs.xml" />
+		<mapper resource="com/entity/marks.xml" />
+		<mapper resource="com/entity/bonus.xml" />
+		<mapper resource="com/entity/dedu.xml" />
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

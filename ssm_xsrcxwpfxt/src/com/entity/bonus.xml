@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.BonusDAO">
+	<resultMap type="bonus" id="bonusMap">
+		<id property="bonusid" column="bonusid" />
+		<result property="teacherid" column="teacherid" />
+		<result property="studentid" column="studentid" />
+		<result property="programsid" column="programsid" />
+		<result property="reason" column="reason" />
+		<result property="num" column="num" />
+		<result property="addtime" column="addtime" />
+		<result property="memo" column="memo" />
+		<result property="realname" column="realname" />
+		<result property="srealname" column="srealname" />
+		<result property="title" column="title" />
+	</resultMap>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllBonus" resultMap="bonusMap">
+		select a.* , b.realname ,
+		c.realname as srealname , d.title from bonus a , teacher b ,
+		student c
+		, programs d where a.teacherid = b.teacherid and
+		a.studentid =
+		c.studentid and a.programsid = d.programsid order by
+		bonusid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getBonusById" parameterType="String" resultMap="bonusMap">
+		select a.* , b.realname , c.realname as srealname , d.title from bonus
+		a , teacher
+		b , student c , programs d where a.teacherid = b.teacherid
+		and
+		a.studentid = c.studentid and a.programsid = d.programsid and
+		bonusid=#{bonusid} order by bonusid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getBonusByCond" parameterType="bonus" resultMap="bonusMap">
+		select a.* , b.realname , c.realname as srealname , d.title from bonus
+		a , teacher
+		b , student c , programs d where a.teacherid = b.teacherid
+		and
+		a.studentid = c.studentid and a.programsid = d.programsid
+		<if test="teacherid != null and '' != teacherid">
+			and a.teacherid = #{teacherid}
+		</if>
+		<if test="studentid != null and '' != studentid">
+			and a.studentid = #{studentid}
+		</if>
+		<if test="programsid != null and '' != programsid">
+			and a.programsid = #{programsid}
+		</if>
+		<if test="reason != null and '' != reason">
+			and a.reason = #{reason}
+		</if>
+		<if test="num != null and '' != num">
+			and a.num = #{num}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getBonusByLike" parameterType="bonus" resultMap="bonusMap">
+		select a.* , b.realname , c.realname as srealname , d.title from bonus
+		a , teacher
+		b , student c , programs d where a.teacherid = b.teacherid
+		and
+		a.studentid = c.studentid and a.programsid = d.programsid
+		<if test="teacherid != null and '' != teacherid">
+			and a.teacherid like CONCAT('%', CONCAT(#{teacherid},
+			'%'))
+		</if>
+		<if test="studentid != null and '' != studentid">
+			and a.studentid like CONCAT('%', CONCAT(#{studentid},
+			'%'))
+		</if>
+		<if test="programsid != null and '' != programsid">
+			and a.programsid like CONCAT('%', CONCAT(#{programsid},
+			'%'))
+		</if>
+		<if test="reason != null and '' != reason">
+			and a.reason like CONCAT('%', CONCAT(#{reason}, '%'))
+		</if>
+		<if test="num != null and '' != num">
+			and a.num like CONCAT('%', CONCAT(#{num}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+

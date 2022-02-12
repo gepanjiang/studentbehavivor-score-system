@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.ProgramsDAO">
+	<resultMap type="programs" id="programsMap">
+		<id property="programsid" column="programsid" />
+		<result property="title" column="title" />
+		<result property="contents" column="contents" />
+		<result property="standards" column="standards" />
+		<result property="weights" column="weights" />
+		<result property="memo" column="memo" />
+		<result property="addtime" column="addtime" />
+		<result property="bas" column="bas" />
+		<result property="themax" column="themax" />
+		<result property="themin" column="themin" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertPrograms" parameterType="programs">
+		insert into
+		programs(programsid , title , contents , standards , weights ,
+		memo ,
+		addtime , bas , themax , themin ) values(#{programsid} , #{title} ,
+		#{contents} ,
+		#{standards} , #{weights} , #{memo} , #{addtime} , #{bas}
+		, #{themax} , #{themin} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updatePrograms" parameterType="programs">
+		update programs set
+		title=#{title} , contents=#{contents} ,
+		standards=#{standards} ,
+		weights=#{weights} , memo=#{memo} ,
+		addtime=#{addtime}, bas = #{bas} ,
+		themax=#{themax} ,themin=#{themin} where programsid=#{programsid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deletePrograms" parameterType="String">
+		delete from programs
+		where programsid = #{programsid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllPrograms" resultMap="programsMap">
+		select a.* from programs a
+		where 1=1 order by programsid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getProgramsById" parameterType="String" resultMap="programsMap">
+		select a.* from programs a where 1=1 and programsid=#{programsid}
+		order by programsid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getProgramsByCond" parameterType="programs"
+		resultMap="programsMap">
+		select a.* from programs a where 1=1
+		<if test="title != null and '' != title">
+			and a.title = #{title}
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}
+		</if>
+		<if test="standards != null and '' != standards">
+			and a.standards = #{standards}
+		</if>
+		<if test="weights != null and '' != weights">
+			and a.weights = #{weights}
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getProgramsByLike" parameterType="programs"
+		resultMap="programsMap">
+		select a.* from programs a where 1=1
+		<if test="title != null and '' != title">
+			and a.title like CONCAT('%', CONCAT(#{title}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+		<if test="standards != null and '' != standards">
+			and a.standards like CONCAT('%', CONCAT(#{standards},
+			'%'))
+		</if>
+		<if test="weights != null and '' != weights">
+			and a.weights like CONCAT('%', CONCAT(#{weights}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+	</select>
+</mapper>
+
+

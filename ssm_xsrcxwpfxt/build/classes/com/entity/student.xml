@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.StudentDAO">
+	<resultMap type="student" id="studentMap">
+		<id property="studentid" column="studentid" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="realname" column="realname" />
+		<result property="sex" column="sex" />
+		<result property="birthday" column="birthday" />
+		<result property="minzu" column="minzu" />
+		<result property="jiguan" column="jiguan" />
+		<result property="contact" column="contact" />
+		<result property="address" column="address" />
+		<result property="clazzid" column="clazzid" />
+		<result property="memo" column="memo" />
+		<result property="addtime" column="addtime" />
+		<result property="clazzname" column="clazzname" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertStudent" parameterType="student">
+		insert into student(studentid , username , password , realname , sex ,
+		birthday , minzu , jiguan , contact , address , clazzid , memo ,
+		addtime ) values(#{studentid} , #{username} , #{password} ,
+		#{realname} , #{sex} , #{birthday} , #{minzu} , #{jiguan} , #{contact}
+		, #{address} , #{clazzid} , #{memo} , #{addtime} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateStudent" parameterType="student">
+		update student set username=#{username} , password=#{password} ,
+		realname=#{realname} , sex=#{sex} , birthday=#{birthday} ,
+		minzu=#{minzu} , jiguan=#{jiguan} , contact=#{contact} ,
+		address=#{address} , clazzid=#{clazzid} , memo=#{memo} ,
+		addtime=#{addtime} where studentid=#{studentid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteStudent" parameterType="String">
+		delete from student where studentid = #{studentid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllStudent" resultMap="studentMap">
+		select a.* , b.clazzname from student a , clazz b where 1=1 and a.clazzid =
+		b.clazzid order by studentid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getStudentById" parameterType="String" resultMap="studentMap">
+		select a.* , b.clazzname from student a , clazz b where 1=1 and
+		a.clazzid = b.clazzid and studentid=#{studentid} order by studentid
+		desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getStudentByCond" parameterType="student" resultMap="studentMap">
+		select a.* , b.clazzname from student a , clazz b where 1=1 and
+		a.clazzid = b.clazzid
+		<if test="username != null and '' != username">
+			and a.username = #{username}
+		</if>
+		<if test="password != null and '' != password">
+			and a.password = #{password}
+		</if>
+		<if test="realname != null and '' != realname">
+			and a.realname = #{realname}
+		</if>
+		<if test="sex != null and '' != sex">
+			and a.sex = #{sex}
+		</if>
+		<if test="birthday != null and '' != birthday">
+			and a.birthday = #{birthday}
+		</if>
+		<if test="minzu != null and '' != minzu">
+			and a.minzu = #{minzu}
+		</if>
+		<if test="jiguan != null and '' != jiguan">
+			and a.jiguan = #{jiguan}
+		</if>
+		<if test="contact != null and '' != contact">
+			and a.contact = #{contact}
+		</if>
+		<if test="address != null and '' != address">
+			and a.address = #{address}
+		</if>
+		<if test="clazzid != null and '' != clazzid">
+			and a.clazzid = #{clazzid}
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getStudentByLike" parameterType="student" resultMap="studentMap">
+		select a.* , b.clazzname from student a , clazz b where 1=1 and
+		a.clazzid = b.clazzid
+		<if test="username != null and '' != username">
+			and a.username like CONCAT('%', CONCAT(#{username}, '%'))
+		</if>
+		<if test="password != null and '' != password">
+			and a.password like CONCAT('%', CONCAT(#{password}, '%'))
+		</if>
+		<if test="realname != null and '' != realname">
+			and a.realname like CONCAT('%', CONCAT(#{realname}, '%'))
+		</if>
+		<if test="sex != null and '' != sex">
+			and a.sex like CONCAT('%', CONCAT(#{sex}, '%'))
+		</if>
+		<if test="birthday != null and '' != birthday">
+			and a.birthday like CONCAT('%', CONCAT(#{birthday}, '%'))
+		</if>
+		<if test="minzu != null and '' != minzu">
+			and a.minzu like CONCAT('%', CONCAT(#{minzu}, '%'))
+		</if>
+		<if test="jiguan != null and '' != jiguan">
+			and a.jiguan like CONCAT('%', CONCAT(#{jiguan}, '%'))
+		</if>
+		<if test="contact != null and '' != contact">
+			and a.contact like CONCAT('%', CONCAT(#{contact}, '%'))
+		</if>
+		<if test="address != null and '' != address">
+			and a.address like CONCAT('%', CONCAT(#{address}, '%'))
+		</if>
+		<if test="clazzid != null and '' != clazzid">
+			and a.clazzid like CONCAT('%', CONCAT(#{clazzid}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
